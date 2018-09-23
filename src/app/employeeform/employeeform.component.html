@@ -1,0 +1,184 @@
+<!-- <ng-template #template > -->
+  <div class="modal-header" >
+    <h4 class="modal-title pull-left">Add New Employee</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div>
+      <form [formGroup]='employeeForm' (ngSubmit)="Save(employeeForm)" autocomplete="off" >
+
+        <!--START: Employee First Name -->
+        <div class="form-group row">
+          <label class="control-label col-md-2" for="Emp_First_Name">First Name</label>
+          <input class="form-control col-md-3" type="text" formControlName='Emp_First_Name' 
+          name='Emp_First_Name' id='Emp_First_Name' placeholder="Your First Name">                
+        <!--END: Employee First Name -->
+
+        <!--START: Employee Last Name -->        
+          <label class="control-label col-md-2" for="Emp_Last_Name">Last Name</label>
+          <input class="form-control col-md-3" type="text" formControlName='Emp_Last_Name' 
+          name='Emp_Last_Name' id='Emp_Last_Name' placeholder="Your Last Name">
+          
+        </div>
+        <!--END: Employee Last Name -->
+
+        <div class="form-group row">
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_First_Name'].touched && !employeeForm.controls['Emp_First_Name'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_First_Name'].hasError('required') ">First Name is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_First_Name'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_First_Name'].hasError('maxlength') ">max length is 50.</span>
+          </div> 
+                    
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_Last_Name'].touched && !employeeForm.controls['Emp_Last_Name'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Last_Name'].hasError('required') ">Last Name is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Last_Name'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Last_Name'].hasError('maxlength') ">max length is 50.</span>
+          </div>          
+        </div>
+
+        <!--START: Employee Email Id -->
+        <div class="form-group row">
+          <label class="control-label col-md-2" for="Emp_Email_ID">Email ID</label>
+          <input class="form-control col-md-3" type="text" formControlName='Emp_Email_ID' 
+          name='Emp_Email_ID' id='Emp_Email_ID' placeholder="Your Email Id" >                 
+        <!--END: Employee Email Id -->
+
+        <!--START: Employee Mobile Number-->        
+          <label class="control-label col-md-2" for="Emp_Mobile_Number">Mobile Number</label>
+          <input class="form-control col-md-3" formControlName='Emp_Mobile_Number' type="text"
+          name='Emp_Mobile_Number' id='Emp_Mobile_Number' placeholder="Your Mobile Number" OnlyNumber >
+        </div>
+        <!--END: Employee Mobile Number-->
+
+        <div class="form-group row">
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_Email_ID'].touched && !employeeForm.controls['Emp_Email_ID'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Email_ID'].hasError('required') ">Email Id is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Email_ID'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Email_ID'].hasError('maxlength') ">max length is 50.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Email_ID'].hasError('pattern') ">Enter Valid Mail.</span>
+          </div> 
+          
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_Mobile_Number'].touched && !employeeForm.controls['Emp_Mobile_Number'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Mobile_Number'].hasError('required') ">Mobile Number is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Mobile_Number'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Mobile_Number'].hasError('maxlength') ">max length is 50.</span>
+          </div>          
+        </div>
+
+        <!--START: Employee State-->
+        <div class="form-group row">
+          <label class="control-label col-md-2" for="Emp_State_ID">State</label>          
+          <select class="form-control col-md-3" name="Emp_State_ID" id="Emp_State_ID" formControlName="Emp_State_ID"
+          (change)="onStateChange($event.target.value)" >                
+            <option *ngFor="let item of states" [value]="item.State_ID">{{item.State_Name}}</option>
+          </select>
+        <!--END: Employee State-->
+
+        <!--START: Employee City-->        
+          <label class="control-label col-md-2" for="Emp_City_ID">City</label>
+          <select class="form-control col-md-3" name="Emp_City_ID" id="Emp_City_ID" formControlName="Emp_City_ID"  >            
+            <option *ngFor="let item of cities" [value]="item.City_ID">{{item.City_Name}}</option>
+          </select>
+        </div>
+        <!--END: Employee City-->
+
+        <div class="form-group row">
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_State_ID'].touched && !employeeForm.controls['Emp_State_ID'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_State_ID'].hasError('required') ">State is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_State_ID'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_State_ID'].hasError('maxlength') ">max length is 50.</span>
+          </div>
+
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_City_ID'].touched && !employeeForm.controls['Emp_City_ID'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_City_ID'].hasError('required') ">City is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_City_ID'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_City_ID'].hasError('maxlength') ">max length is 50.</span>
+          </div>
+        </div>
+
+        <!--START: Employee Skill-->
+        <div class="form-group row">
+          <label class="control-label col-md-2" for="Emp_Skill_ID">Skill</label>
+          <select class="form-control col-md-3" name="Emp_Skill_ID" id="Emp_Skill_ID" formControlName="Emp_Skill_ID">            
+            <option *ngFor="let item of skills" [value]="item.Skill_ID">{{item.Skill_Name}}</option>
+          </select>
+        <!--END: Employee Skill-->
+
+        <!--START: Employee DOB-->        
+          <label class="control-label col-md-2" for="Emp_DOB">Date Of Birth</label>
+          <input class="form-control  col-md-3" placeholder="Your Date of Birth" name="Emp_DOB" 
+          formControlName='Emp_DOB' type="text" id='Emp_DOB' bsDatepicker >
+        </div>        
+        <!--END: Employee DOB-->
+
+        <div class="form-group row">
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_Skill_ID'].touched && !employeeForm.controls['Emp_Skill_ID'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Skill_ID'].hasError('required') ">Skill is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Skill_ID'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Skill_ID'].hasError('maxlength') ">max length is 50.</span>
+          </div> 
+
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_DOB'].touched && !employeeForm.controls['Emp_DOB'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_DOB'].hasError('required') ">Date Of Birth is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_DOB'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_DOB'].hasError('maxlength') ">max length is 50.</span>
+          </div>
+        </div>
+
+        <!--START: Employee DOJ-->
+        <div class="form-group row">
+          <label class="control-label col-md-2" for="Emp_DOJ">Date Of Joining</label>
+          <input class="form-control  col-md-3" placeholder="Your Date of Joining" name="Emp_DOJ" 
+          formControlName='Emp_DOJ' type="text" id='Emp_DOJ' bsDatepicker >                
+        <!--END: Employee DOJ-->
+
+        <!--START: Employee Department-->        
+          <label class="control-label col-md-2" for="Emp_Dept_ID">Department</label>
+          <select class="form-control col-md-3" name="Emp_Dept_ID" id="Emp_Dept_ID" formControlName="Emp_Dept_ID">            
+            <option *ngFor="let item of department" [value]="item.Department_ID">{{item.Department_Name}}</option>
+          </select>       
+        </div>
+        <!--END: Employee Department-->
+
+        <div class="form-group row">
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_DOJ'].touched && !employeeForm.controls['Emp_DOJ'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_DOJ'].hasError('required') ">Date Of Joining is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_DOJ'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_DOJ'].hasError('maxlength') ">max length is 50.</span>
+          </div>  
+
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_Dept_ID'].touched && !employeeForm.controls['Emp_Dept_ID'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Dept_ID'].hasError('required') ">Department is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Dept_ID'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Dept_ID'].hasError('maxlength') ">max length is 50.</span>
+          </div>
+        </div>
+
+        <!--START: Employee Rating-->
+        <div class="form-group row">
+          <label class="control-label col-md-2" for="Emp_Rating">Rating</label>
+          <p-autoComplete formControlName='Emp_Rating' [suggestions]="filteredRating" inputStyleClass="autoCompleteFormControl"
+          [style] = "{'width':'127%'}" (completeMethod)="filterRating($event)" placeholder="Employee Rating" [minLength]="1"></p-autoComplete>          
+        </div>
+        
+        <div class="form-group row">
+          <div class="col-md-5" *ngIf="employeeForm.controls['Emp_Rating'].touched && !employeeForm.controls['Emp_Rating'].valid">
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Rating'].hasError('required') ">Rating is required.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Rating'].hasError('minlength') ">Min length is 1.</span>
+            <span style="color: red" *ngIf="employeeForm.controls['Emp_Rating'].hasError('maxlength') ">max length is 15.</span>
+          </div> 
+        </div>
+        <!--END: Employee Rating-->
+        
+        <div class="modal-footer">
+          <input type="Submit" value="Save" [disabled]='!employeeForm.valid'>&nbsp;&nbsp;
+          <input type="button" value="Cancel" (click)="closeModal()">
+        </div>
+
+      </form>
+    </div>
+  </div>
+<!-- </ng-template> -->

@@ -1,0 +1,18 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="width:90%; margin-left: 2%;">
+  <button type="button" class="btn btn-info" (click)="openModal()">Add</button> &nbsp;&nbsp;
+  <button type="button" class="btn btn-info" (click)="deleteEmployee()">Delete</button>
+</div>
+<br>
+<div style="width:90%; margin-left: 2%; ">
+  <ag-grid-angular 
+    style="width: 1300px; height:450px;"
+    class="ag-theme-balham" 
+    [gridOptions]="gridOptions"
+    [columnDefs]="columnDefs"    
+    [rowData]="rowData"
+    enableSorting
+    enableFilter
+    rowSelection = 'multiple'>
+  </ag-grid-angular>
+</div>
