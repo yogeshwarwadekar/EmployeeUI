@@ -23,6 +23,7 @@ export class EmployeeComponent implements OnInit {
   constructor(private _serviceClass: serviceClass,
     private modalService: BsModalService ,
     private router: Router ) {
+      console.log("Message put by Jayant");
   }
 
   ngOnInit() {
