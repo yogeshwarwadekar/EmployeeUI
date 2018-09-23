@@ -23,8 +23,8 @@ export class EmployeeformComponent implements OnInit {
   empId: number;
   filteredRating: any[];
   ratings: any[];
-  //public event: EventEmitter<any> = new EventEmitter();
-  @Output() event: EventEmitter<any> = new EventEmitter();
+  public event: EventEmitter<any> = new EventEmitter();
+  //@Output() event: EventEmitter<any> = new EventEmitter();
 
   constructor(private _serviceClass: serviceClass,
     private frmbuilder: FormBuilder,
