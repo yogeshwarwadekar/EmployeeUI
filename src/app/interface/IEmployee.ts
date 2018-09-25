@@ -10,5 +10,6 @@ export interface IEmployee {
     Skill_Name: string,
     Emp_DOB: Date,
     Emp_DOJ: Date,
-    Department_Name: string	
+    Department_Name: string,
+    Emp_Rating: string
 }

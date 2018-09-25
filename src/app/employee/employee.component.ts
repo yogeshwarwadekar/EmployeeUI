@@ -221,10 +221,14 @@ export class EmployeeComponent implements OnInit {
     for(let i = 0; i < selectedRows.length; i++ ){
         selectedEmployee = selectedEmployee + (selectedRows[i].Emp_ID) + ",";
     }
+    
     this._serviceClass.deleteEmployee(selectedEmployee)
     .subscribe((data) => {
       this.createRowData();
-    }, error => this.errorMessage = error)
+    },    
+    err => {
+        throw err;
+    })
   }
 
   editCellRenderer (selectedValue: any) {
