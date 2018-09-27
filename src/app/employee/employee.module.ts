@@ -5,6 +5,9 @@ import { EmployeeComponent } from '../employee/employee.component';
 import { employeeRoutingModule } from '../employee/employee-routing.module';
 import { AgGridModule } from 'ag-grid-angular/main';
 import {AutoCompleteModule} from 'primeng/primeng';
+import { HeaderInterceptor } from "../Interceptor/headerinterceptor";
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { ResponseInterceptor } from '../Interceptor/responceinterceptor';
 
 @NgModule({
   imports: [
@@ -13,9 +16,14 @@ import {AutoCompleteModule} from 'primeng/primeng';
     CommonModule,
     employeeRoutingModule,
     AgGridModule.withComponents([EmployeeComponent]),
-    AutoCompleteModule    
+    AutoCompleteModule,
+    HttpClientModule
   ],
-  declarations: [EmployeeComponent]
+  declarations: [EmployeeComponent],
+  providers:[
+              { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
+              { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi:true }
+            ]
 })
 
 export class employeeModule {}

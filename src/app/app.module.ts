@@ -14,6 +14,7 @@ import { datestampPipe } from './pipe/datestamp.pipe';
 import { OnlynumberDirective } from './directive/onlynumber.directive';
 import { GlobalErrorHandlerService } from './services/GlobalErrorHandle';
 
+
 @NgModule({
   declarations: [ 
                   AppComponent, 
@@ -30,8 +31,8 @@ import { GlobalErrorHandlerService } from './services/GlobalErrorHandle';
               BsDatepickerModule.forRoot(),
               AppRoutingModule,
               AutoCompleteModule,
-              BrowserAnimationsModule    
-  ],
+              BrowserAnimationsModule
+           ],
   exports: [ModalModule],
   providers: [
                 serviceClass,
