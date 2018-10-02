@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeComponent } from '../employee/employee.component';
 import { employeeRoutingModule } from '../employee/employee-routing.module';
 import { AgGridModule } from 'ag-grid-angular/main';
-import {AutoCompleteModule} from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/primeng';
 import { HeaderInterceptor } from "../Interceptor/headerinterceptor";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { ResponseInterceptor } from '../Interceptor/responceinterceptor';
