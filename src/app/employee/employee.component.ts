@@ -22,8 +22,9 @@ export class EmployeeComponent implements OnInit {
 
   constructor(private _serviceClass: serviceClass,
     private modalService: BsModalService ,
-    private router: Router ) {
-      console.log("Message put by Jayant");
+
+    private router: Router ) {      
+
   }
 
   ngOnInit() {
@@ -211,10 +212,9 @@ export class EmployeeComponent implements OnInit {
 
   openModal() {
     this.modalRef = this.modalService.show(EmployeeformComponent);
-    this.modalRef.content.event.subscribe(data => 
-      {
-          this.createRowData();
-      });
+    this.modalRef.content.event.subscribe(data => {
+      this.createRowData();
+   });
   }
 
   deleteEmployee(){
@@ -223,20 +223,26 @@ export class EmployeeComponent implements OnInit {
     for(let i = 0; i < selectedRows.length; i++ ){
         selectedEmployee = selectedEmployee + (selectedRows[i].Emp_ID) + ",";
     }
+    
     this._serviceClass.deleteEmployee(selectedEmployee)
     .subscribe((data) => {
       this.createRowData();
-    }, error => this.errorMessage = error)
+    },    
+    err => {
+        throw err;
+    })
   }
 
   editCellRenderer (selectedValue: any) {
     var eDiv = document.createElement('div');   
     eDiv.innerHTML = '<i class="fa fa-edit" style="font-size:20px;" ></i>';
     var eButton = eDiv.querySelectorAll('.fa-edit')[0];
-    eButton.addEventListener('click',() =>  {      
-      console.log("editCellRenderer");
+    eButton.addEventListener('click',() =>  {
       this.modalRef = this.modalService.show(EmployeeformComponent);
       this.modalRef.content.onEditRow(selectedValue.data);
+      this.modalRef.content.event.subscribe(data => {
+           this.createRowData();
+        });
     });
     return eDiv;
   } 
