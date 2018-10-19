@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EmployeeComponent } from './employee.component';
 import { AgGridModule } from 'ag-grid-angular/main';
+import { serviceClass } from '../services/services';
 
 fdescribe('EmployeeComponent', () => {
   let component: EmployeeComponent;
@@ -8,8 +9,9 @@ fdescribe('EmployeeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmployeeComponent ]
-      //import:[AgGridModule.withComponents([EmployeeComponent])]
+      declarations: [ EmployeeComponent ], 
+      imports:[AgGridModule.withComponents([EmployeeComponent])],
+      providers:[serviceClass]
     })
     .compileComponents();
   }));

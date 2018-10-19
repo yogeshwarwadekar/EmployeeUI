@@ -5,6 +5,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { EmployeeformComponent } from '../employeeform/employeeform.component';
 import { serviceClass } from '../services/services';
 import { Router } from '@angular/router';
+import 'rxjs/operator/map';
+import 'rxjs/operator/finally';
 
 @Component({
   selector: 'app-employee',
@@ -204,15 +206,13 @@ export class EmployeeComponent implements OnInit {
   createRowData() {
     this._serviceClass.showEmployee()
       .subscribe(
-        res => {          
-          this.rowData = res;
-        }
+        res => {this.rowData = res;}
       )   
   }
 
   openModal() {
     this.modalRef = this.modalService.show(EmployeeformComponent);
-    this.modalRef.content.event.subscribe(data => {
+    this.modalRef.content.passPTCValue.subscribe(data => {
       this.createRowData();
    });
   }
@@ -224,13 +224,13 @@ export class EmployeeComponent implements OnInit {
         selectedEmployee = selectedEmployee + (selectedRows[i].Emp_ID) + ",";
     }
     
-    this._serviceClass.deleteEmployee(selectedEmployee)
+    this._serviceClass.deleteEmployee(selectedEmployee)    
     .subscribe((data) => {
       this.createRowData();
     },    
     err => {
         throw err;
-    })
+    })    
   }
 
   editCellRenderer (selectedValue: any) {
@@ -240,7 +240,7 @@ export class EmployeeComponent implements OnInit {
     eButton.addEventListener('click',() =>  {
       this.modalRef = this.modalService.show(EmployeeformComponent);
       this.modalRef.content.onEditRow(selectedValue.data);
-      this.modalRef.content.event.subscribe(data => {
+      this.modalRef.content.passPTCValue.subscribe(data => {
            this.createRowData();
         });
     });

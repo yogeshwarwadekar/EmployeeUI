@@ -1,80 +1,77 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, HttpModule } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
 export class serviceClass {
-  private webURLShowEmployee = "http://localhost/Employee_API/showEmployee";
-  private webURLAddEmployee = "http://localhost/Employee_API/addEmployee";
-  private webURLUpdateEmployee = "http://localhost/Employee_API/updateEmployee";
-  private webURLDeleteEmployee = "http://localhost/Employee_API/deleteEmployee";
-  private webURLShowState = "http://localhost/Employee_API/showState";
-  private webURLShowCity = "http://localhost/Employee_API/showCity";
-  private webURLShowDepartment = "http://localhost/Employee_API/showDepartment";
-  private webURLShowSkill = "http://localhost/Employee_API/showSkill";
-  private webURLShowRating = "http://localhost/Employee_API/showRating";
+  
+  private ShowEmployee =  "https://localhost:44360/api/employee/showEmployee";
+  private AddEmployee =  "https://localhost:44360/api/employee/addEmployee";
+  private UpdateEmployee =  "https://localhost:44360/api/employee/UpdateEmployee";
+  private DeleteEmployee =  "https://localhost:44360/api/employee/DeleteEmployee";
+  private ShowState =  "https://localhost:44360/api/state/ShowState";
+  private ShowCity =  "https://localhost:44360/api/city/showCity";
+  private ShowDepartment =  "https://localhost:44360/api/Department/showDepartment";
+  private ShowSkill =  "https://localhost:44360/api/Skill/showSkill";
+  private ShowRating =  "https://localhost:44360/api/Rating/showRating";
+  
 
   constructor(private _http: Http) { }
 
   public showEmployee(): Observable<any> {
-    return this._http.get(this.webURLShowEmployee)
+    return this._http.get(this.ShowEmployee)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
   public addEmployee(employee): Observable<any> {
-    return this._http.post(this.webURLAddEmployee, employee)
-      .map((response: Response) => response.json())
+    return this._http.post(this.AddEmployee, employee)      
       .catch(err => this.handleError(err));
   }
 
   public updateEmployee(empID, employee): Observable<any> {
-    return this._http.put(this.webURLUpdateEmployee + "?empID=" + empID, employee)
-      .map((response: Response) => response.json())
+    return this._http.put(this.UpdateEmployee + "?empID=" + empID, employee)
       .catch(err => this.handleError(err));
   }
 
   public deleteEmployee(selectedEmployees): Observable<any> {
-    return this._http.delete(this.webURLDeleteEmployee + "?employeeIds=" + selectedEmployees)
-      .map((response: Response) => response.json())
+    return this._http.delete(this.DeleteEmployee + "?employeeIds=" + selectedEmployees)
       .catch(err => this.handleError(err));
   }
 
   public showState(): Observable<any[]>{
-    return this._http.get(this.webURLShowState)
+    return this._http.get(this.ShowState)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
   public showCity(stateValue): Observable<any[]>{
-    return this._http.get(this.webURLShowCity + "?stateValue=" + stateValue )
+    return this._http.get(this.ShowCity + "?stateValue=" + stateValue )
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
   public showDepartment() : Observable<any[]>{
-    return this._http.get(this.webURLShowDepartment)
+    return this._http.get(this.ShowDepartment)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
   public showSkill(): Observable<any[]>{
-    return this._http.get(this.webURLShowSkill)
+    return this._http.get(this.ShowSkill)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
   
   public showRatings() {
-    return this._http.get(this.webURLShowRating)
+    return this._http.get(this.ShowRating)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
   private handleError(error: Response) {    
-    return Observable.throw(error.json().error || 'Server error');
+    return Observable.throw('Server error');
   }
 
 }

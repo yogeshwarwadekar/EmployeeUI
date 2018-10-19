@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { serviceClass } from '../services/services';
@@ -23,7 +23,8 @@ export class EmployeeformComponent implements OnInit {
   empId: number;
   filteredRating: any[];
   ratings: any[];
-  public event: EventEmitter<any> = new EventEmitter();
+  public passPTCValue: EventEmitter<any> = new EventEmitter();
+ // @Output() public passPTCValue: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private _serviceClass: serviceClass,
     private frmbuilder: FormBuilder,
@@ -41,16 +42,16 @@ export class EmployeeformComponent implements OnInit {
     {
       this._serviceClass.updateEmployee(this.empId,this.employeeForm.value) 
         .subscribe((data) => {
-          this.event.emit({data:'success'});
+          this.passPTCValue.emit({data:'success'});
         },error => this.errorMessage = error)
     }
     else
     {
       this._serviceClass.addEmployee(this.employeeForm.value)
         .subscribe((data) => {
-          this.event.emit({data:'success'});
+          this.passPTCValue.emit({data:'success'});
       }, error => this.errorMessage = error)
-    }
+    }   
     this.closeModal();
   }
 
