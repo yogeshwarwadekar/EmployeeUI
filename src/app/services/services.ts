@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { IEmployee } from '../interface/IEmployee';
+import { IState } from '../interface/IState';
+import { ICity } from '../interface/ICity';
+import { IDepartment } from '../interface/IDepartment';
+import { IRating } from '../interface/IRating';
+import { ISkill } from '../interface/ISkill';
 
 
 @Injectable()
@@ -19,7 +25,7 @@ export class serviceClass {
 
   constructor(private _http: Http) { }
 
-  public showEmployee(): Observable<any> {
+  public showEmployee(): Observable<IEmployee> {
     return this._http.get(this.ShowEmployee)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
@@ -40,31 +46,31 @@ export class serviceClass {
       .catch(err => this.handleError(err));
   }
 
-  public showState(): Observable<any[]>{
+  public showState(): Observable<IState>{
     return this._http.get(this.ShowState)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
-  public showCity(stateValue): Observable<any[]>{
+  public showCity(stateValue): Observable<ICity>{
     return this._http.get(this.ShowCity + "?stateValue=" + stateValue )
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
-  public showDepartment() : Observable<any[]>{
+  public showDepartment() : Observable<IDepartment>{
     return this._http.get(this.ShowDepartment)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
 
-  public showSkill(): Observable<any[]>{
+  public showSkill(): Observable<ISkill>{
     return this._http.get(this.ShowSkill)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
   }
   
-  public showRatings() {
+  public showRatings():Observable<IRating[]> {
     return this._http.get(this.ShowRating)
       .map((response: Response) => response.json())
       .catch(err => this.handleError(err));
