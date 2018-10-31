@@ -3,6 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { serviceClass } from '../services/services';
 import * as moment from 'moment';
+import { IState } from '../interface/IState';
+import { ICity } from '../interface/ICity';
+import { IDepartment } from '../interface/IDepartment';
+import { IRating } from '../interface/IRating';
+import { ISkill } from '../interface/ISkill';
 
 @Component({
   selector: 'app-employeeform',
@@ -14,21 +19,19 @@ import * as moment from 'moment';
 export class EmployeeformComponent implements OnInit {
   employeeForm: FormGroup;
   modalRef: BsModalRef;
-  errorMessage: any;
-  myDateValue: Date;
-  states: any;
-  cities: any;
-  skills: any;
-  department: any;
+  errorMessage: any;  
+  states: IState;
+  cities: ICity;
+  skills: ISkill;
+  department: IDepartment;
   empId: number;
   filteredRating: any[];
-  ratings: any[];
+  ratings: IRating[];
   public passPTCValue: EventEmitter<any> = new EventEmitter();
- // @Output() public passPTCValue: EventEmitter<any> = new EventEmitter<any>();
-
+ 
   constructor(private _serviceClass: serviceClass,
-    private frmbuilder: FormBuilder,
-    private modalService: BsModalService) { }
+              private frmbuilder: FormBuilder,
+              private modalService: BsModalService) { }
 
   ngOnInit() {
     this.employeeValidator();
@@ -139,12 +142,13 @@ export class EmployeeformComponent implements OnInit {
     this._serviceClass.showRatings().
     subscribe(
       res => {
-        this.filteredRating = this.getFilteredRating(query, res);
+        this.ratings = res;
+        this.filteredRating = this.getFilteredRating(query, this.ratings);
       }
     )
   }
 
-  getFilteredRating(query, ratings: any[]):any[] {    
+  getFilteredRating(query, ratings: IRating[]):any[] {    
     let filtered : any[] = [];
     for(let i = 0; i < ratings.length; i++) {
         let rate = ratings[i];

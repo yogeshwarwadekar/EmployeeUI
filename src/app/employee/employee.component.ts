@@ -7,6 +7,7 @@ import { serviceClass } from '../services/services';
 import { Router } from '@angular/router';
 import 'rxjs/operator/map';
 import 'rxjs/operator/finally';
+import { IEmployee } from '../interface/IEmployee';
 
 @Component({
   selector: 'app-employee',
@@ -17,16 +18,14 @@ import 'rxjs/operator/finally';
 
 export class EmployeeComponent implements OnInit {
   public gridOptions: GridOptions;
-  public rowData: any[];
+  public rowData: IEmployee;
   public columnDefs: any[];
   modalRef: BsModalRef;
   errorMessage: any;  
 
   constructor(private _serviceClass: serviceClass,
-    private modalService: BsModalService ,
-
-    private router: Router ) {      
-
+              private modalService: BsModalService,
+              private router: Router ) {      
   }
 
   ngOnInit() {
@@ -222,8 +221,7 @@ export class EmployeeComponent implements OnInit {
     let selectedRows = this.gridOptions.api.getSelectedRows();
     for(let i = 0; i < selectedRows.length; i++ ){
         selectedEmployee = selectedEmployee + (selectedRows[i].Emp_ID) + ",";
-    }
-    
+    }    
     this._serviceClass.deleteEmployee(selectedEmployee)    
     .subscribe((data) => {
       this.createRowData();
