@@ -42,4 +42,4 @@ import { GlobalErrorHandlerService } from './services/GlobalErrorHandle';
   bootstrap: [AppComponent],
   entryComponents:[EmployeeformComponent]
 })
-export class AppModule { }
+export class AppModule {  }
