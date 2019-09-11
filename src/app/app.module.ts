@@ -13,7 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { datestampPipe } from './pipe/datestamp.pipe';
 import { OnlynumberDirective } from './directive/onlynumber.directive';
 import { GlobalErrorHandlerService } from './services/GlobalErrorHandle';
-
+import { ToastrModule } from 'ngx-toastr';
+import { NotificationService } from './services/notification';
 
 @NgModule({
   declarations: [ 
@@ -31,11 +32,13 @@ import { GlobalErrorHandlerService } from './services/GlobalErrorHandle';
               BsDatepickerModule.forRoot(),
               AppRoutingModule,
               AutoCompleteModule,
-              BrowserAnimationsModule
+              BrowserAnimationsModule,
+              ToastrModule.forRoot()
            ],
   exports: [ModalModule],
   providers: [
                 serviceClass,
+                NotificationService,
                 GlobalErrorHandlerService,
                 { provide: ErrorHandler, useClass: GlobalErrorHandlerService }
              ],

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, HttpModule } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { IEmployee } from '../interface/IEmployee';
 import { IState } from '../interface/IState';
@@ -7,7 +7,6 @@ import { ICity } from '../interface/ICity';
 import { IDepartment } from '../interface/IDepartment';
 import { IRating } from '../interface/IRating';
 import { ISkill } from '../interface/ISkill';
-
 
 @Injectable()
 export class serviceClass {
@@ -21,7 +20,7 @@ export class serviceClass {
   private ShowDepartment =  "https://localhost:44360/api/Department/showDepartment";
   private ShowSkill =  "https://localhost:44360/api/Skill/showSkill";
   private ShowRating =  "https://localhost:44360/api/Rating/showRating";
-  
+  private jwtLogin = "https://localhost:44360/api/Login/jwtLogin";  
 
   constructor(private _http: Http) { }
 
@@ -76,8 +75,13 @@ export class serviceClass {
       .catch(err => this.handleError(err));
   }
 
+  public loginEmployee(UserDetail):Observable<any>{
+    return this._http.post(this.jwtLogin, UserDetail)
+      .map((response: Response) => response.json())
+      .catch(err => this.handleError(err));
+  }
+
   private handleError(error: Response) {    
     return Observable.throw('Server error');
   }
-
 }

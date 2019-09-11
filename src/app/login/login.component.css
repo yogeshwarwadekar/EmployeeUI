@@ -1,0 +1,15 @@
+.form-style{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    min-width: 400px;
+    border: 1px solid #fff;
+    border-radius: 7px;
+    padding: 10px 5px;
+    box-shadow: 0px 0px 10px 0px #c3c3c3;
+}
+.form-style :hover{
+    transform: scale(1.01);
+}
